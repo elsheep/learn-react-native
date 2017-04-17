@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
 
 import React, { Component } from 'react';
 import {
@@ -13,22 +8,29 @@ import {
   PixelRatio,
   NavigatorIOS
 } from 'react-native';
-import ListPage from './js/pages/list-page'
+import ViewExample from './view-example'
 
-export default class AwesomeProject extends Component {
-  render() {
-    return (
-        <NavigatorIOS
-          style={{flex : 1}}
-          initialRoute={{
-            component:ListPage,
-            title : '测试',
-            navigationBarHidden:true,
-            passProps : {}
-            }}
-        />
-    );
-  }
+export default class ListPage extends Component {
+
+    goTo(target){
+        return () => {
+            this.props.navigator.push({
+                component : target,
+                title:""
+            });
+        }
+    }
+    render() {
+        return (
+            <View style={styles.container}>
+                <View style={[styles.listItem, styles.center]}>
+                    <Text onPress={this.goTo(ViewExample)}>
+                        View使用示例
+                    </Text>
+                </View>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -36,14 +38,9 @@ const styles = StyleSheet.create({
     marginTop:25,
     marginLeft:5,
     marginRight:5,
-    height:84,
-    borderRadius:5,
-    padding:2,
-    backgroundColor:'#FF0067',
-    flexDirection : 'row'
   },
-  item : {
-    height:80,
+  listItem : {
+    height:40,
     borderColor : 'blue',
   },
   center : {
@@ -68,5 +65,3 @@ const styles = StyleSheet.create({
     borderColor:"#fff"
   }
 });
-
-AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
